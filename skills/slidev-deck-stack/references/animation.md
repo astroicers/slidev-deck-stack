@@ -135,4 +135,5 @@ transition: fade            # 本頁覆寫成淡入淡出
 - `view-transition` 用瀏覽器原生 View Transitions API，可讓跨頁同名元素「變形接續」，
   做高張力轉場。
 - 自訂過場用物件：`transition: { forward: 'my-fwd', backward: 'my-bwd' }`，底層即 Vue
-  `<TransitionGroup>`，名稱對應你自訂的 CSS。
+  `<TransitionGroup>`，名稱對應你自訂的 CSS。（物件語法見型別定義 `frontmatter.ts`；官方
+  animations 頁僅逐字列 `|` 寫法，故 `.fact-check.md` #16 以原始碼為第二佐證來源。）
