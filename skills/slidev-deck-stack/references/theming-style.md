@@ -107,11 +107,14 @@ colorSchema: all
 切換鍵在 Slidev 內建 UI（或 presenter 模式）即可；自訂顏色記得兩個模式都測，否則某模式
 對比不足看不清。
 
-## 5. 中文字型在畫面與匯出的一致性
+## 5. 字型在畫面與匯出的一致性（台灣繁中 + 美國英文）
 
 字型設定（`fonts:` / `provider: none` / 本地 woff2 / 子集化）完整作法見
 **setup.md §5**。這裡只強調與樣式/匯出的交界：
 
+- **拉丁字型在前、CJK 在後**：繁中 + 英文混排時 `font-family` 的順序決定品相——
+  `'Inter, Noto Sans TC'` 讓英文/數字走 Inter、中文 fallback 到 CJK；別用單一 CJK 字型
+  當 sans（英文會套到 CJK 內較粗糙的拉丁字形）。
 - **可重現優先**：正式 deck 與要進 CI 匯出的場合，用本地子集化 woff2 + `provider: none`，
   別依賴 Google Fonts CDN（網路一抖字型就掉、匯出環境抓不到字會變方框）。
 - **mono 也要含中文 fallback**：程式碼字型若無中文字符，註解裡的中文會缺字；
@@ -121,8 +124,8 @@ colorSchema: all
 
 ```yaml
 fonts:
-  sans: 'Source Han Sans TC'
+  sans: 'Inter, Source Han Sans TC'       # 英文 Inter、中文 fallback CJK
   mono: 'Fira Code, Source Han Sans TC'   # mono 補中文 fallback，註解才不缺字
   provider: none
-  local: 'Source Han Sans TC'
+  local: 'Inter, Source Han Sans TC'
 ```

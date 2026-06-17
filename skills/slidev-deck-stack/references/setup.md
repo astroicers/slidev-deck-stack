@@ -95,29 +95,33 @@ npm install slidev-theme-academic
 npm install slidev-addon-python-runner
 ```
 
-## 5. 中文字型設定（繁體）
+## 5. 字型設定（台灣繁中 + 美國英文混排）
 
-Slidev 的 `fonts:` 預設從 Google Fonts CDN 自動抓字。繁中可用 `Noto Sans TC` /
-`Noto Serif TC`，但**全字集 webfont 很大**，會拖慢載入與匯出，務必收斂：
+簡報以**台灣繁體中文 + 美國英文**為主時，關鍵是 `font-family` 的**順序**：把好看的拉丁
+字型放前、CJK 字型放後——英文與程式碼走拉丁字型，中文字自動 fallback 到 CJK 字型，兩種
+語言都漂亮（用單一 CJK 字型當 sans，英文會套到 CJK 內較粗糙的拉丁字形）。Slidev 的
+`fonts.sans` / `fonts.mono` **接逗號清單**，預設從 Google Fonts CDN 抓。
+
+繁中常用 `Noto Sans TC` / `Noto Serif TC`，但**全字集 webfont 很大**，務必收斂字重：
 
 ```yaml
-# 方案 A（最省事）：限制字重，減少下載量
+# 方案 A（最省事）：拉丁字型在前、CJK fallback 在後 + 限制字重
 fonts:
-  sans: Noto Sans TC
-  serif: Noto Serif TC
-  mono: Fira Code
-  weights: '400,700'        # 只抓需要的字重，別抓 100~900 全部
+  sans: 'Inter, Noto Sans TC'        # 英文走 Inter、中文 fallback Noto Sans TC
+  serif: 'Noto Serif TC'
+  mono: 'Fira Code, Noto Sans TC'    # 程式碼走 Fira Code、註解中文 fallback（防缺字）
+  weights: '400,700'                 # 只抓需要的字重，別抓 100~900 全部
 ```
 
-字型量仍嫌大、或要離線/可重現匯出時，改自備本地字型、關掉 CDN：
+字型量仍嫌大、或要離線/可重現匯出時，改自備本地字型、關掉 CDN（順序原則不變）：
 
 ```yaml
 # 方案 B（可重現）：自備子集化 woff2，關閉自動匯入
 fonts:
-  sans: 'Source Han Sans TC'
-  mono: 'Fira Code'
-  provider: none            # 不向 CDN 抓，全部當本地字型處理
-  local: 'Source Han Sans TC'
+  sans: 'Inter, Source Han Sans TC'
+  mono: 'Fira Code, Source Han Sans TC'
+  provider: none            # 不向 CDN 抓，全部當本地字型處理（拉丁與 CJK 都要自備）
+  local: 'Inter, Source Han Sans TC'
 ```
 
 ```css
