@@ -136,7 +136,8 @@ fonts:
 
 ## 6. 套件版本對照表
 
-撰寫基準：2026-06（查證紀錄見 repo 根目錄 `.fact-check.md`）。
+撰寫基準：2026-06（查證紀錄見 repo 根目錄 `.fact-check.md`）。表中 `x` 為 patch 範圍，
+查證點為各套件當下最新版（如 `@slidev/cli` 52.16.0）。
 **套件 API 變更時，更新對應 references 檔並同步此表。**
 
 | 套件 | 版本 | 對應 references 檔 |
