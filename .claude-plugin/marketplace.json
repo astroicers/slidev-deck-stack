@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "slidev-deck-stack",
+  "description": "Slidev deck stack plugins for building correct, maintainable technical presentations with Slidev, Markdown, Vue, and code-driven diagrams",
+  "owner": {
+    "name": "astroicers"
+  },
+  "plugins": [
+    {
+      "name": "slidev-deck-stack",
+      "version": "1.0.0",
+      "description": "Cross-feature integration rules and recipes for Slidev v52 + Vue + Markdown + UnoCSS + Shiki magic-move + Mermaid/PlantUML + KaTeX + built-in layouts + v-click/v-motion + export PDF/PPTX/PNG/SPA. Enforces 8 iron rules that prevent common pitfalls in slide structure, code, animation, theming, and export.",
+      "author": {
+        "name": "astroicers"
+      },
+      "license": "MIT",
+      "category": "presentation",
+      "source": ".",
+      "homepage": "https://github.com/astroicers/slidev-deck-stack"
+    }
+  ]
+}

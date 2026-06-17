@@ -1,0 +1,20 @@
+{
+  "name": "slidev-deck-stack",
+  "version": "1.0.0",
+  "description": "Slidev deck stack skill — Slidev v52 + Vue + Markdown + UnoCSS + Shiki magic-move + Mermaid/PlantUML + KaTeX cross-feature integration rules and recipes. Enforces 8 iron rules for slide structure, code, animation, theming, and reproducible export.",
+  "author": {
+    "name": "astroicers"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/astroicers/slidev-deck-stack",
+  "repository": "https://github.com/astroicers/slidev-deck-stack",
+  "keywords": [
+    "slidev",
+    "vue",
+    "markdown",
+    "presentation",
+    "slides",
+    "mermaid",
+    "claude-code-skill"
+  ]
+}
