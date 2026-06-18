@@ -98,6 +98,7 @@ layout、不手刻；圖走程式碼、不截圖。
 
 | 情境 | 讀這個檔 |
 |------|---------|
+| 拿到 talk-craft 的 ghost-deck、把 exhibit→layout / design-direction→theme 落地 | [references/handoff.md](references/handoff.md) |
 | 開新 deck、裝依賴、headmatter 常用鍵、目錄結構、中文字型、版本對照 | [references/setup.md](references/setup.md) |
 | 分頁規則、headmatter vs frontmatter、layout 全表、slots、嵌 Vue 元件 | [references/slide-structure.md](references/slide-structure.md) |
 | 程式碼高亮 / magic-move / TwoSlash / Monaco / `<<<` 匯入、Mermaid / PlantUML / inline SVG / KaTeX | [references/code-and-diagrams.md](references/code-and-diagrams.md) |
@@ -106,11 +107,15 @@ layout、不手刻；圖走程式碼、不截圖。
 | 匯出 PDF/PPTX/PNG/SPA、點擊展開、presenter + 備註、部署 | [references/export-delivery.md](references/export-delivery.md) |
 | 出怪 bug（分頁亂、字型缺、匯出破版、點擊不展開…）、上台前檢查 | [references/pitfalls.md](references/pitfalls.md) |
 
-## 與 AI-SOP-Protocol（ASP）及 visual-web-stack 的關係
+## 與 talk-craft、AI-SOP-Protocol（ASP）及 visual-web-stack 的關係
 
 本 skill 是**知識層**（怎麼做簡報），ASP 是**治理層**（怎麼工作），透過專案 CLAUDE.md
 疊加、互不取代。
 
+- **與 `talk-craft` 互補（上游）**：talk-craft 決定「寫什麼／怎麼組織論證」並產出 **ghost-deck
+  artifact**（deck header + 每頁 `slide` 區塊）；本 skill 是下游消費者——把它落成 Slidev deck。
+  交棒欄位與對映規格見 [references/handoff.md](references/handoff.md)（欄位與 talk-craft
+  `references/templates.md` §3 字字對齊）。本 skill 不改 talk-craft 的標題/敘事/論證。
 - 與 `visual-web-stack` 並列：兩者都是知識層 skill。Slidev 走 Vue，不與 React 棧衝突；
   但若在投影片內嵌自訂 Vue 元件，樣式紀律（UnoCSS、不亂塞 inline style）精神一致，
   跨套件細節以各自的 skill 為準。

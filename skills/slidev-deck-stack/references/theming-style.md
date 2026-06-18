@@ -10,15 +10,23 @@ style**；版面交給內建 layout（鐵則 #5），這裡只談「外觀皮膚
 
 ## 1. 主題選型
 
-headmatter `theme:` 指定，官方主題可省 `slidev-theme-` / `@slidev/theme-` 前綴：
+headmatter `theme:` 指定，官方主題可省 `slidev-theme-` / `@slidev/theme-` 前綴。完整清單見官方
+[theme gallery](https://sli.dev/resources/theme-gallery)（或 npm keyword `slidev-theme`）。**官方
+三主題（default / seriph / apple-basic）維護最穩、下載量最高，不確定就從這三個起手。**
 
-| 主題 | 套件 | 風格 / 適用 |
+| 主題 | 來源 | 風格 / 適用 |
 |------|------|-------------|
-| default | `@slidev/theme-default` | 簡潔通用，技術分享首選 |
-| seriph | `@slidev/theme-seriph` | 襯線字、正式/學術感 |
-| academic | `slidev-theme-academic` | 論文/研究報告（含引用、單位頁等） |
-| neversink | `slidev-theme-neversink` | 多彩色票、教學/課程 |
-| geist | `slidev-theme-geist` | Vercel Geist 極簡、產品 demo |
+| default | 官方 | 簡潔通用、技術分享首選 |
+| seriph | 官方 | 襯線字、正式/學術/keynote 感 |
+| apple-basic | 官方 | Keynote 風大字 + 留白，`statement`/`fact` 頁強 |
+| academic | 社群 | 論文/研究（cover 作者單位、引用、figure） |
+| frankfurt | 社群 | Beamer 風、**頂部章節 + 進度條**，長課程/lecture |
+| neversink | 社群 | 多彩、admonition/便利貼，教學/workshop |
+| penguin | 社群 | 明暗雙版、dev 品牌感，教學/個人 |
+| geist | 社群 | Vercel Geist 單色極簡，產品/dev demo |
+| dracula | 社群 | Dracula 暗色，配 live-coding |
+| the-unnamed | 社群 | 暗色高對比洋紅，dev conference |
+| nord | 社群 | Nord 冷色低彩，沉穩 dev |
 
 ```yaml
 ---
@@ -26,8 +34,20 @@ theme: seriph
 ---
 ```
 
-換主題時版面/顏色都會變，這正是「別手刻排版與顏色」（鐵則 #5/#6）的理由——內容與皮膚
-解耦，換主題不破版。
+**design-direction → theme（對接 talk-craft 交棒；完整對映見 handoff.md §3）**：
+
+| talk-craft `design-direction` | theme |
+|-------------------------------|-------|
+| 暗色終端（dev/資安 demo） | geist(dark) / dracula / the-unnamed / nord ＋ `colorSchema: dark` |
+| 學術襯線（研究/lecture） | academic / seriph / frankfurt |
+| keynote 大字（願景/pitch） | apple-basic / seriph |
+| 教學（workshop） | neversink / penguin |
+| 企業（匯報/sponsor） | seriph / geist ＋ 品牌 token |
+| 通用 | default / seriph |
+
+換主題時版面/顏色都會變，這正是「別手刻排版與顏色」（鐵則 #5/#6）的理由——內容與皮膚解耦，
+換主題不破版。社群主題下載量多在千以下、維護不一，**正式場合優先官方三主題或自行覆寫 token
+（§3）**。
 
 ## 2. UnoCSS（內建）
 

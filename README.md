@@ -20,7 +20,7 @@ slidev-deck-stack/
 ├── .fact-check.md              # Slidev API / 版本查證紀錄
 ├── .github/
 │   └── workflows/
-│       └── validate.yml        # CI：驗 JSON / SKILL frontmatter / 7 references 齊全
+│       └── validate.yml        # CI：驗 JSON / SKILL frontmatter / 8 references 齊全
 ├── .claude-plugin/
 │   ├── marketplace.json        # Claude Code Marketplace 定義
 │   └── plugin.json             # Plugin 描述
@@ -28,6 +28,7 @@ slidev-deck-stack/
     └── slidev-deck-stack/
         ├── SKILL.md            # 核心：五層架構 + 8 條鐵則 + 選型表 + 路由表
         └── references/         # 按需載入的完整實作配方
+            ├── handoff.md          # 消費 talk-craft ghost-deck：exhibit→layout、design-direction→theme
             ├── setup.md            # 開新 deck、依賴、headmatter、目錄、中文字型、版本表
             ├── slide-structure.md  # 分頁、headmatter vs frontmatter、layout 全表、slots、嵌 Vue
             ├── code-and-diagrams.md# Shiki / magic-move / <<< / Mermaid / PlantUML / SVG / KaTeX
