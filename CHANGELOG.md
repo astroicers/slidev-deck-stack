@@ -2,11 +2,24 @@
 
 本專案的所有重大變更記錄於此。格式依循 [Keep a Changelog](https://keepachangelog.com/zh-TW/1.1.0/)，版本遵循 [Semantic Versioning](https://semver.org/lang/zh-TW/)。
 
-## [Unreleased]
+## [1.1.0] - 2026-06-18
 
 ### Added
 
+- `references/handoff.md`：消費 talk-craft 的 **ghost-deck artifact**——deck header / 每頁
+  `slide` 區塊的欄位對照（與 talk-craft `templates.md` §3 字字對齊）、**exhibit → layout/component
+  對映**、**design-direction → theme 對映**。
 - README 方法 D：`npx skills` / `gh skill` 安裝法（跨 agent 開放安裝器，對齊 agent-skills 規範）。
+
+### Changed
+
+- `theming-style.md` §1 主題選型：擴充 theme 清單（借鏡官方 theme gallery——apple-basic /
+  frankfurt / penguin / dracula / the-unnamed / nord 等）+ 新增 **design-direction → theme
+  對照表** + 官方 gallery 連結。
+- `SKILL.md`：references 路由表加 `handoff.md`（置頂）；companion 段補 talk-craft 上游互補。
+- `README.md` 結構樹 / CI 註解、`validate.yml`（references 7 → 8）同步。
+- `.fact-check.md` #18：補登新增 6 主題（apple-basic / frankfurt / penguin / dracula /
+  the-unnamed / nord）的 npm 套件名與版本查證（2026-06-18）。
 
 ## [1.0.0] - 2026-06-17
 

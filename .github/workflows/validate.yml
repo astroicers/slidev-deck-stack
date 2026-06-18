@@ -34,7 +34,7 @@ jobs:
 
       - name: Check all references exist
         run: |
-          for r in setup slide-structure code-and-diagrams animation theming-style export-delivery pitfalls; do
+          for r in handoff setup slide-structure code-and-diagrams animation theming-style export-delivery pitfalls; do
             test -f "skills/slidev-deck-stack/references/$r.md" || { echo "❌ 缺 references/$r.md"; exit 1; }
           done
-          echo "✅ 7 份 references 齊全"
+          echo "✅ 8 份 references 齊全"
