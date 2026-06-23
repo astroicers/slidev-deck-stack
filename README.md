@@ -8,6 +8,26 @@ layouts + slots + UnoCSS + Shiki 高亮 / magic-move + `<<<` 匯入 + Mermaid / 
 inline SVG / KaTeX + v-click / v-clicks / v-after / v-motion + 主題與中文字型 +
 匯出 PDF/PPTX/PNG/SPA + presenter 與部署。
 
+## 快速上手（5 分鐘）
+
+Slidev 卡在分頁亂、magic-move 不動、中文字型變方框、匯出破版？這個 skill 把「怎麼用 Slidev 做對」固化成鐵則，第一版就不踩。
+
+1. **裝**：`/plugin marketplace add astroicers/slidev-deck-stack`（或 `npx skills add astroicers/slidev-deck-stack`）。
+2. 在對話說：「用 slidev-deck-stack 幫我把這份大綱做成 Slidev deck」（有 talk-craft 的 ghost-deck 更好，見 `references/handoff.md`）。
+3. 它依鐵則開 deck：headmatter 分層、內建 **layout**、程式碼行高亮 / **magic-move**、圖走 Mermaid（不放截圖）。
+4. 匯出鎖 `playwright-chromium`、加 `--with-clicks`、中文字型備援，確保可重現。
+5. 上線前過 `references/pitfalls.md` 的檢查清單。
+
+## 術語速查
+
+- **headmatter** — 檔案第一個 `---` 區塊的**全域**設定（theme / 字型 / 匯出名…）。
+- **frontmatter** — 每頁 `---` 的**單頁**設定（layout / transition / class…）。
+- **magic-move** — 程式碼在同一頁**逐步演化**的動畫。
+- **v-clicks** — 清單 / 區塊逐項揭示（別手寫 `v-click` 索引）。
+- **layout** — 內建版面（`two-cols` / `fact` / `quote` / `section`…），別手刻 flex/grid。
+
+（完整方法見 `SKILL.md` 與 `references/`。）
+
 ## 結構
 
 ```
