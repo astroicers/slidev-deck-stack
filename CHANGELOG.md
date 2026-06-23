@@ -2,6 +2,13 @@
 
 本專案的所有重大變更記錄於此。格式依循 [Keep a Changelog](https://keepachangelog.com/zh-TW/1.1.0/)，版本遵循 [Semantic Versioning](https://semver.org/lang/zh-TW/)。
 
+## [1.1.1] - 2026-06-23
+
+### Added
+
+- README 快速上手（5 分鐘）+ 術語速查（headmatter / frontmatter / magic-move / v-clicks / layout）。
+- `SKILL.md` 邊界段（Slidev v52 快照會漂移、「貼 SKILL.md 即用」誠實底線、cross-runtime 未實測標註）。
+
 ## [1.1.0] - 2026-06-18
 
 ### Added

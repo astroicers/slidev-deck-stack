@@ -122,6 +122,14 @@ layout、不手刻；圖走程式碼、不截圖。
 - 品質門檻（G1–G6）、commit 流程、ADR 紀律 → 聽 ASP。
 - 衝突時：工作流程聽 ASP；Slidev 整合細節聽本 skill。
 
+## 邊界（這個 skill 不做什麼 / 何時別用）
+
+- 是 **Slidev v52 當下的整合快照**，會隨 Slidev / 套件升級**漂移**——版本見 `references/setup.md`，過期請重新查證。
+- 管「怎麼用 Slidev 做對」，**不替你決定簡報的內容與論證**（那是 talk-craft；交棒見 `references/handoff.md`）。
+- 不是 Slidev 全功能手冊，只收**跨功能整合**會踩的坑。
+- **可攜底線**：本 skill 本質是 markdown + YAML——不支援的 runtime 直接把 `SKILL.md` 貼進去即可用。
+  「Cursor / opencode 通用」目前**未實測**。
+
 在做簡報的專案 CLAUDE.md 加入一行即繼承本規範：
 
 ```
