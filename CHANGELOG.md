@@ -2,6 +2,33 @@
 
 本專案的所有重大變更記錄於此。格式依循 [Keep a Changelog](https://keepachangelog.com/zh-TW/1.1.0/)，版本遵循 [Semantic Versioning](https://semver.org/lang/zh-TW/)。
 
+## [1.2.0] - 2026-06-24
+
+### Added
+
+- `references/builtin-components.md`：Slidev v52 全部內建元件速查表（`<Toc>` / `<Link>` /
+  `<Arrow>` / `<VDragArrow>` / `<Transform>` / `<RenderWhen>` / `<LightOrDark>` / `<VSwitch>` /
+  `<Tweet>` / `<BlueSky>` / `<Youtube>` / `<SlidevVideo>` / `<SlideCurrentNo>` / `<SlidesTotal>` /
+  `<TitleRenderer>` / `<AutoFitText>` / `<PoweredBySlidev>`）——依用途分組、關鍵 props/slots、踩雷點。
+- `.fact-check.md`：重新建立查證紀錄檔（先前 `SKILL.md` / `setup.md` 有引用但檔案不存在），記錄
+  本次新增內容對 Slidev **v52.16.0** 的查證來源。
+
+### Changed
+
+- 補齊 features 索引缺口至各 references：`slide-structure.md`（global layers / frontmatter
+  合併 / block frontmatter / `zoom`）、`code-and-diagrams.md`（code groups / 行號 `startLine`）、
+  `animation.md`（draggable elements `v-drag` / `<v-drag-arrow>` / `dragPos`）、`theming-style.md`
+  （icons / slide-scoped style）。
+- `SKILL.md`：references 路由表新增 `builtin-components.md` 一列、既有各列補新功能、新增「要放
+  元件/特效前先查現成內建元件再手刻」原則；動畫選型表加 draggable / code groups 兩列。
+- `README.md` 結構樹 / CI 註解、`validate.yml`（references 8 → 9）同步。
+
+### Fixed
+
+- 查證推翻三項先前假設並記入 `.fact-check.md`：Slidev **無**單頁 `rotate:` frontmatter（rotate
+  僅為 draggable 位置第五值）；code groups 需 `comark: true`（與 `mdc: true` 為**兩個獨立旗標**）；
+  draggable 官方頁網址為 `/features/draggable`。
+
 ## [1.1.1] - 2026-06-23
 
 ### Added

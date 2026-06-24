@@ -24,7 +24,8 @@ const r = add(1, 2)   // 第 3 段才點亮這行
 
 - `{2,3}`：同時高亮第 2、3 行。
 - `{2,3|5|all}`：三段，逐 click 推進（最後 `all` 全亮）。
-- 加 `{lines:true}` 顯示行號（或 headmatter `lineNumbers: true` 全域開）。
+- 加 `{lines:true}` 顯示行號（或 headmatter `lineNumbers: true` 全域開）；起始行號用
+  `{startLine:5}`，可合併 `{lines:true,startLine:5}`。
 - `{maxHeight:'200px'}` 讓過長程式碼可捲動。
 
 ## 2. magic-move（演化）
@@ -158,3 +159,25 @@ $$
 import 'katex/contrib/mhchem'
 export default {}
 ```
+
+## 9. code groups（多段程式碼分頁籤）
+
+「同一件事、多種寫法」（npm/yarn/pnpm、JS/TS、前/後端）用 `::code-group` 收成頁籤，
+別並排貼多塊。**需 headmatter `comark: true`**（這是獨立旗標，**不是** `mdc: true`）：
+
+````md
+::code-group
+
+```sh [npm]
+npm i @slidev/cli
+```
+
+```sh [pnpm]
+pnpm add @slidev/cli
+```
+
+::
+````
+
+- `[方括號]` 內是頁籤標題；標題名會自動配對圖示（內建圖示需裝 `@iconify-json/vscode-icons`）。
+- 自訂圖示：標題後加 `~i-uil:github~`，並裝該 iconify 套件、在 `uno.config.ts` 的 `safelist` 加 `i-uil:github`（icons 細節見 [theming-style.md](theming-style.md)）。

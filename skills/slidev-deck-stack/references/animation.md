@@ -137,3 +137,38 @@ transition: fade            # 本頁覆寫成淡入淡出
 - 自訂過場用物件：`transition: { forward: 'my-fwd', backward: 'my-bwd' }`，底層即 Vue
   `<TransitionGroup>`，名稱對應你自訂的 CSS。（物件語法見型別定義 `frontmatter.ts`；官方
   animations 頁僅逐字列 `|` 寫法，故 `.fact-check.md` #16 以原始碼為第二佐證來源。）
+
+## 7. draggable elements（拖曳定位元素）
+
+要把箭頭/標籤/圖示拖到精準位置（而非用 CSS 慢慢試）時用。位置格式一律是五個值
+`Left,Top,Width,Height,Rotate`（最後一個 `Rotate` 是**旋轉角度**——Slidev 沒有單頁
+`rotate:` frontmatter，旋轉只在這裡）。三種寫法：
+
+```md
+<!-- 指令：任意元素加 v-drag，傳位置陣列 -->
+<img v-drag="[120, 200, 180, 120, 0]" src="/logo.png">
+
+<!-- 元件：當可拖曳容器；Height 給 NaN(指令)/_(元件) 表示隨內容自動 -->
+<v-drag pos="120,200,180,_" text-3xl>
+  <div class="i-carbon:arrow-up" /> 可拖曳容器
+</v-drag>
+
+<!-- 可拖曳箭頭：非位置的樣式 props 同 <Arrow> -->
+<v-drag-arrow color="#4471cb" two-way />
+```
+
+**互動定位**：不必手算座標——不給位置值時 Slidev 自動產生初始位置；在預覽中**雙擊**元素即可拖拉/縮放/旋轉。
+
+**位置存哪（重要踩雷）**：Slidev 預設用 regex 把新位置寫回 slide 內文的 `v-drag="[...]"`；
+若改不動或出問題，改用具名位置存到該頁 frontmatter `dragPos:`，更穩定：
+
+```md
+---
+dragPos:
+  logo: 120,200,180,120,0
+---
+
+<img v-drag="'logo'" src="/logo.png">
+```
+
+> `<VDrag>` / `<VDragArrow>` 也列在 [builtin-components.md](builtin-components.md)，定位細節以本節為準。
