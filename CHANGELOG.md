@@ -12,6 +12,9 @@
   `<TitleRenderer>` / `<AutoFitText>` / `<PoweredBySlidev>`）——依用途分組、關鍵 props/slots、踩雷點。
 - `.fact-check.md`：重新建立查證紀錄檔（先前 `SKILL.md` / `setup.md` 有引用但檔案不存在），記錄
   本次新增內容對 Slidev **v52.16.0** 的查證來源。
+- `references/code-and-diagrams.md` §10「內嵌自足動態圖（canvas/SVG）」：把 animated explainer 落成
+  自足 Vue 元件的三個必守點——讀主題 token、尊重 `prefers-reduced-motion` 定格代表幀、非當前頁停 RAF；
+  `references/pitfalls.md` 對應新增一列。（借鑒自純 Canvas 2D explainer，與 talk-craft §1 第 10 招對接。）
 
 ### Changed
 
