@@ -86,6 +86,8 @@ layout、不手刻；圖走程式碼、不截圖。
 | 換整頁的過場效果 | headmatter/frontmatter `transition:` | [references/animation.md](references/animation.md) |
 | 程式碼逐行聚焦 | 行高亮 `{1\|2-3}` | [references/code-and-diagrams.md](references/code-and-diagrams.md) |
 | 程式碼多步演化（A→B→C） | magic-move | [references/code-and-diagrams.md](references/code-and-diagrams.md) |
+| 把元素拖到精準位置（箭頭/標籤/圖示） | `v-drag` / `<v-drag-arrow>` | [references/animation.md](references/animation.md) |
+| 同一件事多種寫法收頁籤（npm/yarn、JS/TS） | code groups（需 `comark: true`） | [references/code-and-diagrams.md](references/code-and-diagrams.md) |
 
 判斷順序：先問「是換整頁嗎？」→ `transition`；
 再問「是元素要按節奏出現嗎？」→ `<v-clicks>`（精準插隊才 `v-click="n"`）；
@@ -95,15 +97,18 @@ layout、不手刻；圖走程式碼、不截圖。
 ## references/ 路由表
 
 按需載入，維持本檔精簡。**動手寫碼前先讀對應檔案。**
+**要放元件或特效前，先查有沒有現成內建元件/功能（`builtin-components.md`、features 索引
+https://sli.dev/features/），別手刻已經存在的東西。**
 
 | 情境 | 讀這個檔 |
 |------|---------|
 | 拿到 talk-craft 的 ghost-deck、把 exhibit→layout / design-direction→theme 落地 | [references/handoff.md](references/handoff.md) |
 | 開新 deck、裝依賴、headmatter 常用鍵、目錄結構、中文字型、版本對照 | [references/setup.md](references/setup.md) |
-| 分頁規則、headmatter vs frontmatter、layout 全表、slots、嵌 Vue 元件 | [references/slide-structure.md](references/slide-structure.md) |
-| 程式碼高亮 / magic-move / TwoSlash / Monaco / `<<<` 匯入、Mermaid / PlantUML / inline SVG / KaTeX | [references/code-and-diagrams.md](references/code-and-diagrams.md) |
-| v-click 家族 / `$clicks` / transition / v-motion 排序 | [references/animation.md](references/animation.md) |
-| 主題選型、UnoCSS、主題 token、中文字型、dark mode、自訂樣式 | [references/theming-style.md](references/theming-style.md) |
+| 分頁規則、headmatter vs frontmatter、layout 全表、slots、嵌 Vue 元件、global layers（頁碼/頁尾/浮水印）、frontmatter 合併 / block frontmatter、zoom | [references/slide-structure.md](references/slide-structure.md) |
+| 內建元件（`<Toc>` / `<Link>` / `<Arrow>` / `<RenderWhen>` / `<LightOrDark>` / 推文・影片嵌入 / 頁碼…）速查與踩雷 | [references/builtin-components.md](references/builtin-components.md) |
+| 程式碼高亮 / 行號 / code groups / magic-move / TwoSlash / Monaco / `<<<` 匯入、Mermaid / PlantUML / inline SVG / KaTeX | [references/code-and-diagrams.md](references/code-and-diagrams.md) |
+| v-click 家族 / `$clicks` / transition / v-motion 排序 / draggable（`v-drag`） | [references/animation.md](references/animation.md) |
+| 主題選型、UnoCSS、icons、主題 token、中文字型、dark mode、slide-scoped style、自訂樣式 | [references/theming-style.md](references/theming-style.md) |
 | 匯出 PDF/PPTX/PNG/SPA、點擊展開、presenter + 備註、部署 | [references/export-delivery.md](references/export-delivery.md) |
 | 出怪 bug（分頁亂、字型缺、匯出破版、點擊不展開…）、上台前檢查 | [references/pitfalls.md](references/pitfalls.md) |
 

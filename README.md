@@ -50,10 +50,11 @@ slidev-deck-stack/
         └── references/         # 按需載入的完整實作配方
             ├── handoff.md          # 消費 talk-craft ghost-deck：exhibit→layout、design-direction→theme
             ├── setup.md            # 開新 deck、依賴、headmatter、目錄、中文字型、版本表
-            ├── slide-structure.md  # 分頁、headmatter vs frontmatter、layout 全表、slots、嵌 Vue
-            ├── code-and-diagrams.md# Shiki / magic-move / <<< / Mermaid / PlantUML / SVG / KaTeX
-            ├── animation.md        # v-click 家族、$clicks、transition、v-motion
-            ├── theming-style.md    # 主題選型、UnoCSS、主題 token、dark mode、中文字型
+            ├── slide-structure.md  # 分頁、headmatter/frontmatter、layout、slots、global layers、zoom
+            ├── builtin-components.md# 內建元件速查：Toc/Link/Arrow/RenderWhen/LightOrDark/媒體嵌入/頁碼
+            ├── code-and-diagrams.md# Shiki / magic-move / <<< / Mermaid / PlantUML / SVG / KaTeX / code groups
+            ├── animation.md        # v-click 家族、$clicks、transition、v-motion、draggable（v-drag）
+            ├── theming-style.md    # 主題選型、UnoCSS、icons、主題 token、dark mode、中文字型
             ├── export-delivery.md  # 匯出 PDF/PPTX/PNG/SPA、--with-clicks、presenter、部署
             └── pitfalls.md         # 地雷對照表 + 上台前檢查清單
 ```

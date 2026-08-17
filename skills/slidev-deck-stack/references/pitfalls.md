@@ -21,6 +21,7 @@
 | 部署後整頁資源 404 | 部署在子路徑卻沒設 base | `slidev build --base /<repo>/`（GitHub Pages，export-delivery.md §5） |
 | 首屏載入很慢、字型抓很久 | `Noto Sans TC` 全字集全字重從 CDN 抓 | 限 `weights`、或本地子集化字型（鐵則 #8，setup.md §5） |
 | 一頁點擊數爆多、自己數錯 | 把複雜編排硬塞同一頁 | 拆頁、控制每頁 click 預算（鐵則 #3，animation.md §4） |
+| 內嵌 canvas/自訂動畫深色模式對不上、或開「減少動態」還在狂動 | 元件寫死色、沒尊重 reduced-motion、離開該頁也沒停 | 讀主題 token 取色、`prefers-reduced-motion` 定格代表幀、非當前頁停 RAF（code-and-diagrams.md §10） |
 
 ## 上台前檢查清單
 

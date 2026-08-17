@@ -24,7 +24,8 @@ const r = add(1, 2)   // 第 3 段才點亮這行
 
 - `{2,3}`：同時高亮第 2、3 行。
 - `{2,3|5|all}`：三段，逐 click 推進（最後 `all` 全亮）。
-- 加 `{lines:true}` 顯示行號（或 headmatter `lineNumbers: true` 全域開）。
+- 加 `{lines:true}` 顯示行號（或 headmatter `lineNumbers: true` 全域開）；起始行號用
+  `{startLine:5}`，可合併 `{lines:true,startLine:5}`。
 - `{maxHeight:'200px'}` 讓過長程式碼可捲動。
 
 ## 2. magic-move（演化）
@@ -158,3 +159,61 @@ $$
 import 'katex/contrib/mhchem'
 export default {}
 ```
+
+## 9. code groups（多段程式碼分頁籤）
+
+「同一件事、多種寫法」（npm/yarn/pnpm、JS/TS、前/後端）用 `::code-group` 收成頁籤，
+別並排貼多塊。**需 headmatter `comark: true`**（這是獨立旗標，**不是** `mdc: true`）：
+
+````md
+::code-group
+
+```sh [npm]
+npm i @slidev/cli
+```
+
+```sh [pnpm]
+pnpm add @slidev/cli
+```
+
+::
+````
+
+- `[方括號]` 內是頁籤標題；標題名會自動配對圖示（內建圖示需裝 `@iconify-json/vscode-icons`）。
+- 自訂圖示：標題後加 `~i-uil:github~`，並裝該 iconify 套件、在 `uno.config.ts` 的 `safelist` 加 `i-uil:github`（icons 細節見 [theming-style.md](theming-style.md)）。
+
+## 10. 內嵌自足動態圖（canvas / SVG，主題感知 + reduced-motion）
+
+靜態架構圖用 §7 的 inline SVG + v-click 就夠。**要「會演」的解說圖**（資料流沿路徑跑、
+before/after 對照、逐步偵測）時，包成一個自足 Vue 元件（`components/FlowDiagram.vue`，Slidev
+自動註冊）嵌進 slide。這種元件是「animated explainer」的落地（構圖思路見 talk-craft
+`field-patterns.md` §1 第 10 招），三個**必守點**：
+
+- **讀主題 token、不寫死色**：從 CSS 變數 / UnoCSS token 取色（`getComputedStyle` 讀 `--slidev-theme-*`
+  或用 `currentColor`），並在主題切換時重繪——呼應鐵則 #6「圖能被上色、深色模式對得上」。
+  單純明暗兩版可用內建 `<LightOrDark>`（見 builtin-components.md）包兩個 SVG。
+- **尊重 `prefers-reduced-motion`**：`matchMedia('(prefers-reduced-motion: reduce)').matches`
+  命中就**定格在能說明白的代表性一幀**，不要在投影時狂動（觀眾與錄影都受不了）。
+- **離屏 / 非當前頁暫停**：比對 `$nav.currentPage`（見 slide-structure.md）與本頁頁碼，不是當前頁
+  就停 RAF；省 presenter 與 `slidev export` 的資源。
+
+```vue
+<!-- components/FlowDiagram.vue -->
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+const cv = ref()
+let raf = null
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+onMounted(() => {
+  const ctx = cv.value.getContext('2d')
+  const ink = getComputedStyle(cv.value).getPropertyValue('color') // 隨主題
+  const draw = (t) => { /* 用 ink 畫，reduce 時傳固定 t 畫代表幀 */ }
+  if (reduce) draw(1)                     // 定格終態
+  else { const loop = (ts) => { draw(ts / 1000); raf = requestAnimationFrame(loop) }; raf = requestAnimationFrame(loop) }
+})
+onUnmounted(() => raf && cancelAnimationFrame(raf))
+</script>
+<template><canvas ref="cv" width="640" height="320" class="w-full text-[--slidev-theme-primary]" /></template>
+```
+
+逐步揭示仍走 `v-click`（見 animation.md）；動態圖只負責「演」，節奏交給 click。

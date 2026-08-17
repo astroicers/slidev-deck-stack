@@ -62,7 +62,18 @@ class，免設定：
 </div>
 ```
 
-圖示用 icon class（`@iconify-json/*` 安裝後）：`<carbon-logo-github class="text-2xl" />`。
+**圖示（icons，由 Iconify 驅動）**：命名 `{collection}-{icon}`，當 class（`i-carbon-logo-github`）
+或當標籤用，可吃任意 UnoCSS class 上色/動畫：
+
+```md
+<carbon-logo-github />
+<uim-rocket class="text-3xl text-orange-400 animate-ping" />
+```
+
+每個 collection 要先裝對應套件 `@iconify-json/<collection>`（如 `@iconify-json/carbon`），
+collection 清單見 [Icônes](https://icones.js.org/)。
+⚠ 若圖示名是動態組出來的（非原始碼字面），UnoCSS 掃不到、會被 purge，需在 `uno.config.ts`
+的 `safelist` 明列（code groups 自訂圖示同理，見 [code-and-diagrams.md](code-and-diagrams.md) §9）。
 
 要擴充 UnoCSS（自訂 shortcut、主題色）放 `uno.config.ts`：
 
@@ -107,6 +118,10 @@ class: text-center
 h1 { color: var(--slidev-theme-primary); }
 </style>
 ```
+
+> slide-scoped style 要點（v52）：Markdown 內的 `<style>` **永遠是 scoped**，不必加 `scoped`，
+> 只作用於當頁。代價是**子選擇器 `.a > .b` 這類無法用**——要全域生效改寫 `styles/` 下的檔（§3）。
+> 由 UnoCSS 驅動，可用巢狀 CSS 與 `--uno: 'text-teal-500'` 指令。
 
 ## 4. Dark / Light
 
