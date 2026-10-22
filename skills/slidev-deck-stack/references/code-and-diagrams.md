@@ -163,7 +163,7 @@ export default {}
 ## 9. code groups（多段程式碼分頁籤）
 
 「同一件事、多種寫法」（npm/yarn/pnpm、JS/TS、前/後端）用 `::code-group` 收成頁籤，
-別並排貼多塊。**需 headmatter `comark: true`**（這是獨立旗標，**不是** `mdc: true`）：
+別並排貼多塊。**需 headmatter `comark: true`**（舊鍵 `mdc:` 已標 deprecated、MDC 併入 Comark，一律用 `comark:`）：
 
 ````md
 ::code-group

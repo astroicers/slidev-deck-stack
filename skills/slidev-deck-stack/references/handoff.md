@@ -56,10 +56,15 @@ talk-craft 只給設計**方向**，這裡對映到實際 Slidev theme（選型�
 ## 4. 落地流程
 
 1. **deck header → headmatter**：`design-direction` 對映 theme（§3）、`title`/`info` 取自
-   `governing-thought`、`colorSchema` 依方向。
-2. **每個 `slide` 區塊 → 一頁**：`title` 照搬為 `#` 標題、`exhibit` 選 layout（§2）、`reveal`
-   接 `<v-clicks>`、`assertion` + `note` 進講者備註。
-3. 之後一切照本 skill 鐵則（分頁前後空行、內建 layout、圖走程式碼、匯出鎖 chromium、中文字型…）。
+   `governing-thought`、`colorSchema` 依方向；時長已知就填 `duration:`。
+2. **先填頁面計畫表**（[deck-planning.md](deck-planning.md) §3）：每個 `slide` 區塊一列——
+   `routeAlias`、layout（由 `exhibit` 對映）、click 預算（由 `reveal` 節點數）、`minutes`；
+   順手檢查節奏（§4：每 3–4 頁一頁換氣頁、同 layout 連續 ≤ 3）。ghost-deck 不管節奏，這一步補。
+3. **每個 `slide` 區塊 → 一頁**：`title` 照搬為 `#` 標題、`exhibit` 選 layout（§2）、`reveal`
+   接 `<v-clicks>`、`assertion` 進備註「目的」、`note` 進提詞，格式照
+   [presenter-notes.md](presenter-notes.md) §2（`[click]` 對齊 `reveal` 節點）。
+4. 之後一切照本 skill 鐵則（分頁前後空行、內建 layout、圖走程式碼、匯出鎖 chromium、中文字型…），
+   交付前跑 `scripts/validate-deck.mjs` 與 pitfalls.md §4 分級檢查。
 
 > **邊界**：talk-craft 不碰 theme / font / layout；本 skill 不改 `title` / 敘事 / 論證（那是
 > talk-craft 領域）。雙語**內容**策略歸 talk-craft；中文**字型**落地歸本 skill

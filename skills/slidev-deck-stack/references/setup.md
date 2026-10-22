@@ -30,6 +30,7 @@ scaffold 預設給 `slides.md` + `package.json` + 一個 `components/` 範例。
 ```
 my-deck/
 ├── slides.md          # 主投影片（headmatter + 各頁）
+├── plan.md            # 頁面計畫表 / 七問答案（deck-planning.md §3；不進 slides.md）
 ├── package.json
 ├── components/        # 自訂 Vue 元件，檔名即標籤，自動全域註冊（無需 import）
 ├── snippets/          # 外部程式碼，給 `<<<` 匯入（建議放這裡以相容 Monaco）
@@ -61,7 +62,9 @@ info: |
 author: astroicers
 keywords: slidev,talk
 transition: slide-left     # 全域換頁過場（見 animation.md）
-mdc: true                  # 啟用 MDC（Comark）行內語法
+comark: true               # 啟用 Comark 行內語法（舊鍵 mdc 已 deprecated）
+duration: 30min            # presenter timer 總長（見 presenter-notes.md §3）
+timer: countdown           # countdown | stopwatch（預設 stopwatch）
 lineNumbers: true          # 程式碼顯示行號
 drawings:
   persist: false           # 手繪註記是否寫回原始碼

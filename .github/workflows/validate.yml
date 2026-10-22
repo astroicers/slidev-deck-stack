@@ -11,6 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Validate plugin JSON
         run: |
           jq . .claude-plugin/plugin.json > /dev/null
@@ -45,7 +49,32 @@ jobs:
 
       - name: Check all references exist
         run: |
-          for r in handoff setup slide-structure builtin-components code-and-diagrams animation theming-style export-delivery pitfalls; do
+          for r in handoff deck-planning setup slide-structure builtin-components code-and-diagrams animation theming-style export-delivery presenter-notes pitfalls; do
             test -f "skills/slidev-deck-stack/references/$r.md" || { echo "❌ 缺 references/$r.md"; exit 1; }
           done
-          echo "✅ 9 份 references 齊全"
+          echo "✅ 11 份 references 齊全"
+
+      - name: Check SKILL.md routes every reference
+        run: |
+          for r in skills/slidev-deck-stack/references/*.md; do
+            b=$(basename "$r")
+            grep -q "references/$b" skills/slidev-deck-stack/SKILL.md || { echo "❌ SKILL.md 路由表沒有 $b"; exit 1; }
+          done
+          echo "✅ SKILL.md 路由表涵蓋所有 references"
+
+      - name: Run validate-deck.mjs against fixtures
+        run: |
+          v=skills/slidev-deck-stack/scripts/validate-deck.mjs
+          node --check "$v"
+          node "$v" tests/fixtures/good/slides.md --require-notes --strict
+          if node "$v" tests/fixtures/bad/slides.md --target-minutes 20 > bad.log 2>&1; then
+            echo "❌ bad fixture 應該失敗"; cat bad.log; exit 1
+          fi
+          for needle in '鐵則 #1' '鐵則 #2' '鐵則 #4' '鐵則 #7' '鐵則 #8' '<v-clicks>' 'routeAlias「dup」' 'deprecated' '連續 4 頁' '連續 5 頁密集頁'; do
+            grep -q -- "$needle" bad.log || { echo "❌ bad fixture 沒有觸發：$needle"; cat bad.log; exit 1; }
+          done
+          if node "$v" tests/fixtures/budget/slides.md > budget.log 2>&1; then
+            echo "❌ budget fixture 應該失敗"; cat budget.log; exit 1
+          fi
+          grep -q '90%' budget.log || { echo "❌ budget fixture 沒觸發 90% 時間預算檢查"; cat budget.log; exit 1; }
+          echo "✅ validate-deck.mjs：good 通過、bad / budget 如預期失敗"

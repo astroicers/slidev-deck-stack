@@ -6,11 +6,12 @@ description: |
   Mermaid / PlantUML / inline SVG / KaTeX + v-click / v-clicks / v-after / v-motion +
   主題與中文字型 + 匯出 PDF/PPTX/PNG/SPA + presenter 與部署。
   當你要用 Slidev 做技術簡報、研討會 talk、教學投影片、產品 demo deck 時必須載入。
-  Handles: 開新 deck 與目錄結構、分頁與版面 layout、程式碼與圖表呈現、逐步揭示動畫、
-  主題與中文字型、匯出與部署排錯。
+  Handles: 動手前的需求澄清與頁面計畫、開新 deck 與目錄結構、分頁與版面 layout、程式碼與圖表
+  呈現、逐步揭示動畫、主題與中文字型、講者備註與排練、交付前靜態驗證、匯出與部署排錯。
   Triggers: Slidev, 投影片, 簡報, slides, deck, talk, 技術分享, 教學投影片,
   headmatter, frontmatter, two-cols, layout, magic-move, v-click, v-clicks,
-  mermaid, plantuml, katex, 匯出 PDF, PPTX, slidev export, 中文字型, presenter, 部署.
+  mermaid, plantuml, katex, 匯出 PDF, PPTX, slidev export, 中文字型, presenter, 部署,
+  講者備註, 排練, 需求澄清, 頁面計畫, 節奏, 檢查清單, validate-deck.
 ---
 
 # Slidev Deck Stack — Slidev 技術簡報整合規範
@@ -76,6 +77,32 @@ layout、不手刻；圖走程式碼、不截圖。
    `slidev export --with-clicks`；中文字型必須在匯出環境可得，否則 PDF 變方框（見
    theming-style.md、export-delivery.md）。
 
+## 工作流（六步；第 0–2 步在動手前）
+
+| 步 | 做什麼 | 讀這個 |
+|---|--------|--------|
+| 0 入口 | 有 talk-craft ghost-deck → 照 handoff 對映；只有題目 / 大綱 / 文章 → 第 1 步 | [handoff.md](references/handoff.md)、[deck-planning.md](references/deck-planning.md) §0 |
+| 1 澄清 | 七問：受眾場景、時長、素材、程式碼與圖（含截圖）、設計方向、交付形式、硬約束；一次最多問 3 個 | [deck-planning.md](references/deck-planning.md) §1 |
+| 2 計畫 | 時長 → 頁數與 click 預算；頁面計畫表（`routeAlias` / layout / exhibit / click / `minutes`）；版面節奏；存 `plan.md` | [deck-planning.md](references/deck-planning.md) §2–§4 |
+| 3 寫 deck | 照鐵則 1–8：headmatter、內建 layout、行高亮 / magic-move、圖走程式碼、`public/` 資源 | setup / slide-structure / code-and-diagrams / animation / theming-style |
+| 4 備註 | 每頁「目的 / 3–5 條提詞（`[click]` 對齊揭示）/ 轉場」；`minutes:` + headmatter `duration:` | [presenter-notes.md](references/presenter-notes.md) |
+| 5 驗證 | `scripts/validate-deck.mjs`（0 錯誤）→ `slidev export --format png` 逐張目視 → pitfalls P0–P3 分級 | [pitfalls.md](references/pitfalls.md) |
+| 6 交付 | presenter 排練對錶、PDF / PPTX 備援、部署實開 | [export-delivery.md](references/export-delivery.md)、[presenter-notes.md](references/presenter-notes.md) §4 |
+
+使用者已給完整大綱 + 素材 + 交付形式 → 第 1 步可跳。結構一旦定錯翻修最貴，第 0–2 步不省。
+（工作流與分級檢查借鑒 [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill)，
+輸出改為 Slidev。）
+
+## 設計原則（拿不準時回來看）
+
+- **克制優於炫技**：`transition` 全場一種、`v-motion` 只給 hero 頁、每頁 click ≤ 6（animation.md §8）。
+- **結構優於裝飾**：層級靠內建 layout + 字級 + 留白，不靠陰影卡片與 inline style（鐵則 #5）。
+- **圖是證據不是裝飾**：能用程式碼生成就不截圖；非放不可的截圖要保真、遮敏感、同組統一比例
+  （鐵則 #6、deck-planning.md §5）。
+- **節奏靠換氣頁**：每 3–4 頁密集頁插一頁 `section` / `fact` / `statement`（deck-planning.md §4）。
+- **一頁一個訊息**：action title + 一個 exhibit；塞不下就拆頁，不縮字（theming-style.md §6）。
+- **先量後改、再目視**：溢出照階梯處理；靜態檢查過了也一定出 PNG 看（pitfalls.md §2–§3）。
+
 ## 逐步揭示與動畫選型表（選型路由）
 
 | 需求 | 用什麼 | 參考檔 |
@@ -103,14 +130,16 @@ https://sli.dev/features/），別手刻已經存在的東西。**
 | 情境 | 讀這個檔 |
 |------|---------|
 | 拿到 talk-craft 的 ghost-deck、把 exhibit→layout / design-direction→theme 落地 | [references/handoff.md](references/handoff.md) |
+| **動手前**：需求澄清七問、時長→頁數、頁面計畫表、版面節奏、截圖命名 / 比例 / 遮蔽約定 | [references/deck-planning.md](references/deck-planning.md) |
 | 開新 deck、裝依賴、headmatter 常用鍵、目錄結構、中文字型、版本對照 | [references/setup.md](references/setup.md) |
 | 分頁規則、headmatter vs frontmatter、layout 全表、slots、嵌 Vue 元件、global layers（頁碼/頁尾/浮水印）、frontmatter 合併 / block frontmatter、zoom | [references/slide-structure.md](references/slide-structure.md) |
 | 內建元件（`<Toc>` / `<Link>` / `<Arrow>` / `<RenderWhen>` / `<LightOrDark>` / 推文・影片嵌入 / 頁碼…）速查與踩雷 | [references/builtin-components.md](references/builtin-components.md) |
 | 程式碼高亮 / 行號 / code groups / magic-move / TwoSlash / Monaco / `<<<` 匯入、Mermaid / PlantUML / inline SVG / KaTeX | [references/code-and-diagrams.md](references/code-and-diagrams.md) |
 | v-click 家族 / `$clicks` / transition / v-motion 排序 / draggable（`v-drag`） | [references/animation.md](references/animation.md) |
 | 主題選型、UnoCSS、icons、主題 token、中文字型、dark mode、slide-scoped style、自訂樣式 | [references/theming-style.md](references/theming-style.md) |
-| 匯出 PDF/PPTX/PNG/SPA、點擊展開、presenter + 備註、部署 | [references/export-delivery.md](references/export-delivery.md) |
-| 出怪 bug（分頁亂、字型缺、匯出破版、點擊不展開…）、上台前檢查 | [references/pitfalls.md](references/pitfalls.md) |
+| 匯出 PDF/PPTX/PNG/SPA、點擊展開、部署 | [references/export-delivery.md](references/export-delivery.md) |
+| 講者備註契約（目的 / 提詞 / 轉場、`[click]` 標記）、`minutes` 時間規劃、presenter 做得到 / 做不到、排練流程 | [references/presenter-notes.md](references/presenter-notes.md) |
+| 出怪 bug（分頁亂、字型缺、匯出破版、點擊不展開…）、內容溢出階梯、自檢指令、P0–P3 分級檢查 | [references/pitfalls.md](references/pitfalls.md) |
 
 ## 與 talk-craft、AI-SOP-Protocol（ASP）及 visual-web-stack 的關係
 
@@ -124,6 +153,8 @@ https://sli.dev/features/），別手刻已經存在的東西。**
 - 與 `visual-web-stack` 並列：兩者都是知識層 skill。Slidev 走 Vue，不與 React 棧衝突；
   但若在投影片內嵌自訂 Vue 元件，樣式紀律（UnoCSS、不亂塞 inline style）精神一致，
   跨套件細節以各自的 skill 為準。
+- 與 `guizang-ppt-skill`（單檔 HTML deck）**不同產物**：本 skill 借它的需求澄清、節奏規劃、備註契約、
+  分級檢查與驗證器思路，輸出仍是 Slidev；兩者的模板 / class / 版式鎖不互通，別混用。
 - 品質門檻（G1–G6）、commit 流程、ADR 紀律 → 聽 ASP。
 - 衝突時：工作流程聽 ASP；Slidev 整合細節聽本 skill。
 
@@ -132,6 +163,8 @@ https://sli.dev/features/），別手刻已經存在的東西。**
 - 是 **Slidev v52 當下的整合快照**，會隨 Slidev / 套件升級**漂移**——版本見 `references/setup.md`，過期請重新查證。
 - 管「怎麼用 Slidev 做對」，**不替你決定簡報的內容與論證**（那是 talk-craft；交棒見 `references/handoff.md`）。
 - 不是 Slidev 全功能手冊，只收**跨功能整合**會踩的坑。
+- `scripts/validate-deck.mjs` 是**可選**工具（零依賴、Node 18+）：只做靜態檢查，取代不了 dev 逐頁看與
+  匯出 PNG 目視；不跑它也能用本 skill。
 - **可攜底線**：本 skill 本質是 markdown + YAML——不支援的 runtime 直接把 `SKILL.md` 貼進去即可用。
   「Cursor / opencode 通用」目前**未實測**。
 

@@ -14,9 +14,19 @@ Slidev 卡在分頁亂、magic-move 不動、中文字型變方框、匯出破�
 
 1. **裝**：`/plugin marketplace add astroicers/slidev-deck-stack`（或 `npx skills add astroicers/slidev-deck-stack`）。
 2. 在對話說：「用 slidev-deck-stack 幫我把這份大綱做成 Slidev deck」（有 talk-craft 的 ghost-deck 更好，見 `references/handoff.md`）。
-3. 它依鐵則開 deck：headmatter 分層、內建 **layout**、程式碼行高亮 / **magic-move**、圖走 Mermaid（不放截圖）。
+   只有題目沒大綱？它會先用 `references/deck-planning.md` 的**七問**對齊受眾、時長、素材、交付形式，再填頁面計畫表。
+3. 它依鐵則開 deck：headmatter 分層、內建 **layout**、程式碼行高亮 / **magic-move**、圖走 Mermaid（不放截圖），
+   每頁附講者備註（`[click]` 對齊揭示、`minutes` 規劃時間，見 `references/presenter-notes.md`）。
 4. 匯出鎖 `playwright-chromium`、加 `--with-clicks`、中文字型備援，確保可重現。
-5. 上線前過 `references/pitfalls.md` 的檢查清單。
+5. 上線前跑靜態檢查 + 出 PNG 目視，再過 `references/pitfalls.md` 的 **P0–P3** 分級清單：
+
+   ```bash
+   node ~/.claude/skills/slidev-deck-stack/scripts/validate-deck.mjs slides.md --target-minutes 30 --require-notes
+   slidev export --format png --output shots --with-clicks
+   ```
+
+   （路徑以實際安裝位置為準：`install.sh` / symlink / `npx skills -g` 裝在 `~/.claude/skills/`；
+   marketplace 安裝在 Claude Code 的 plugin 目錄；或直接在本 repo 跑 `node skills/slidev-deck-stack/scripts/validate-deck.mjs`。）
 
 ## 術語速查
 
@@ -25,6 +35,9 @@ Slidev 卡在分頁亂、magic-move 不動、中文字型變方框、匯出破�
 - **magic-move** — 程式碼在同一頁**逐步演化**的動畫。
 - **v-clicks** — 清單 / 區塊逐項揭示（別手寫 `v-click` 索引）。
 - **layout** — 內建版面（`two-cols` / `fact` / `quote` / `section`…），別手刻 flex/grid。
+- **routeAlias** — 每頁的穩定英文 ID（frontmatter），重排不改；`<Link to>` 與備註都用它。
+- **minutes** — 每頁 frontmatter 的自訂鍵，計畫講幾分鐘；加總 ≤ headmatter `duration` 的 90%。
+- **換氣頁** — `section` / `fact` / `statement` 這類一句話的頁，每 3–4 頁密集頁插一頁。
 
 （完整方法見 `SKILL.md` 與 `references/`。）
 
@@ -37,26 +50,33 @@ slidev-deck-stack/
 ├── CHANGELOG.md                # 版本變更紀錄（Keep a Changelog + SemVer）
 ├── install.sh                  # 安裝腳本
 ├── .gitignore
-├── .fact-check.md              # Slidev API / 版本查證紀錄
+├── .fact-check.md              # Slidev API / 版本查證紀錄（對 v52.16.0 tag 與 main 核對）
 ├── .github/
 │   └── workflows/
-│       └── validate.yml        # CI：驗 JSON / SKILL frontmatter / 8 references 齊全
+│       └── validate.yml        # CI：驗 JSON / 版本一致 / SKILL frontmatter / 11 references 齊全
+│                               #     / 路由表涵蓋 / validate-deck.mjs 對 fixtures
 ├── .claude-plugin/
 │   ├── marketplace.json        # Claude Code Marketplace 定義
 │   └── plugin.json             # Plugin 描述
+├── tests/
+│   └── fixtures/               # validate-deck.mjs 的 good / bad / budget 範例 deck
 └── skills/
     └── slidev-deck-stack/
-        ├── SKILL.md            # 核心：五層架構 + 8 條鐵則 + 選型表 + 路由表
+        ├── SKILL.md            # 核心：五層架構 + 8 條鐵則 + 六步工作流 + 設計原則 + 選型表 + 路由表
+        ├── scripts/
+        │   └── validate-deck.mjs   # 零依賴靜態檢查器（鐵則 / 節奏 / 備註 / minutes 預算）
         └── references/         # 按需載入的完整實作配方
             ├── handoff.md          # 消費 talk-craft ghost-deck：exhibit→layout、design-direction→theme
+            ├── deck-planning.md    # 動手前：七問澄清、時長→頁數、頁面計畫表、版面節奏、截圖約定
             ├── setup.md            # 開新 deck、依賴、headmatter、目錄、中文字型、版本表
             ├── slide-structure.md  # 分頁、headmatter/frontmatter、layout、slots、global layers、zoom
             ├── builtin-components.md# 內建元件速查：Toc/Link/Arrow/RenderWhen/LightOrDark/媒體嵌入/頁碼
             ├── code-and-diagrams.md# Shiki / magic-move / <<< / Mermaid / PlantUML / SVG / KaTeX / code groups
-            ├── animation.md        # v-click 家族、$clicks、transition、v-motion、draggable（v-drag）
-            ├── theming-style.md    # 主題選型、UnoCSS、icons、主題 token、dark mode、中文字型
-            ├── export-delivery.md  # 匯出 PDF/PPTX/PNG/SPA、--with-clicks、presenter、部署
-            └── pitfalls.md         # 地雷對照表 + 上台前檢查清單
+            ├── animation.md        # v-click 家族、$clicks、transition、v-motion、draggable、動畫節制
+            ├── theming-style.md    # 主題選型、UnoCSS、icons、主題 token、dark mode、中文字型、投影可讀性
+            ├── export-delivery.md  # 匯出 PDF/PPTX/PNG/SPA、--with-clicks、部署
+            ├── presenter-notes.md  # 講者備註契約、[click] 標記、minutes 時間規劃、presenter 能做什麼、排練
+            └── pitfalls.md         # 地雷對照表 + 溢出階梯 + 自檢指令 + P0–P3 分級檢查清單
 ```
 
 ## 安裝
@@ -145,6 +165,12 @@ rm -rf ~/.claude/skills/slidev-deck-stack
 - 與 `visual-web-stack` 並列：兩者都是知識層 skill；Slidev 走 Vue，不與 React 棧衝突，
   但投影片內嵌自訂 Vue 元件時，UnoCSS / 不亂塞 inline style 的樣式紀律精神一致。
 - Slidev 整合細節（headmatter 位置、layout 不手刻、圖走程式碼、匯出可重現…）→ 聽本 skill。
+
+## 借鑒
+
+工作流（七問澄清 → 頁面計畫 → 節奏 → 備註 → 分級自檢）、講者備註契約與驗證器思路，借鑒
+[guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill)（歸藏，AGPL-3.0）。只借**方法**，
+未使用其模板、class、版式鎖或文字；那是單檔 HTML deck 的 skill，本 skill 輸出仍是 Slidev，兩者不混用。
 
 ## 套件版本對照表
 
