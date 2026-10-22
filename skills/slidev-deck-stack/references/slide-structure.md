@@ -84,6 +84,7 @@ src: ./pages/chapter-2.md
 ---
 layout: image-right
 image: /diagram.png      # public/diagram.png（鐵則 #7）
+backgroundSize: contain  # 截圖 / 含文字的圖用 contain 保真；預設 cover 會裁切（照片用預設即可）
 class: my-2
 ---
 
@@ -91,6 +92,9 @@ class: my-2
 
 右邊那張圖由 layout 負責排版，你只管寫內容。
 ```
+
+`backgroundSize` 也接 CSS 值（如 `20em 70%`）。截圖的命名、比例、遮蔽等約定見
+[deck-planning.md](deck-planning.md) §5。
 
 ## 3. slots（具名插槽）
 
@@ -169,7 +173,7 @@ h1 { color: var(--slidev-theme-primary); }
 </style>
 ```
 
-> MDC（Comark）：headmatter 設 `mdc: true` 後，可用 `行內文字{.text-red}` 直接掛 class、
+> Comark（舊稱 MDC）：headmatter 設 `comark: true`（舊鍵 `mdc:` 已 deprecated）後，可用 `行內文字{.text-red}` 直接掛 class、
 > `![](/img.png){width=200px}` 設屬性，免寫 HTML。語法見 https://sli.dev/features/mdc。
 
 ## 5. global layers（跨頁/每頁圖層：頁尾、頁碼、浮水印）

@@ -172,3 +172,17 @@ dragPos:
 ```
 
 > `<VDrag>` / `<VDragArrow>` 也列在 [builtin-components.md](builtin-components.md)，定位細節以本節為準。
+
+## 8. 動畫節制（克制優於炫技）
+
+動畫是為論證服務的節奏工具，不是裝飾。借鑒 guizang-ppt-skill「克制優於炫技」的原則，落到 Slidev：
+
+- **`transition` 全場一種**（headmatter），前進 / 後退用 `slide-left | slide-right` 即可；單頁覆寫只給
+  `cover` / `section` 做章節切換感。
+- **`v-motion` 只給 cover / section / 一張關鍵圖的進場**；內文清單用 `<v-clicks>` 就夠，別每頁都飛進來。
+- **一頁一種節奏**：不要在同一頁疊 `<v-clicks>` + `v-motion` + magic-move 三種揭示方式，觀眾會迷路。
+- **click 預算 ≤ 6**（§4）；連續三頁都頂到預算 → 這一段該拆頁或減 exhibit。
+- **出現順序 = 論證順序**：每一擊都要對應講者備註裡一條 `[click]` 提詞（presenter-notes.md §2）；
+  說不出「這一擊為什麼存在」就刪掉它。
+- **匯出會失去動畫**：PDF 只能用 `--with-clicks` 保留揭示步驟，`v-motion` 的位移全沒；重要資訊不能
+  只靠動畫才看得懂。內嵌動態圖要尊重 reduced-motion（code-and-diagrams.md §10）。

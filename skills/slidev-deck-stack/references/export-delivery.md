@@ -66,8 +66,10 @@ slidev build --base /my-deck/      # 部署在子路徑時務必設 base（GitHu
 -->
 ```
 
-開 presenter：dev 模式下開 `http://localhost:3030/presenter`（或 UI 右下角進入），
-左講稿、右下一頁預覽、計時器。
+開 presenter：dev 模式下開 `http://localhost:3030/presenter`（或導覽列講者圖示），
+有下一頁預覽、備註（`[click]` 標記會隨點擊高亮）、timer（headmatter `duration:` / `timer:`）、
+Screen Mirror。**備註怎麼寫、時間怎麼規劃、presenter 做得到 / 做不到什麼**見
+[presenter-notes.md](presenter-notes.md)。
 
 ## 5. 部署
 
@@ -79,6 +81,9 @@ slidev build --base /my-deck/      # 部署在子路徑時務必設 base（GitHu
 
 ## 6. 匯出前自查（鐵則 #8）
 
+- 先跑 `node ~/.claude/skills/slidev-deck-stack/scripts/validate-deck.mjs slides.md`（0 錯誤）。
+- **視覺核對**：`slidev export --format png --output shots --with-clicks` 出圖逐張看——標題折行、
+  程式碼被裁、圖文相撞、深色對比，靜態檢查抓不到的都在這裡（pitfalls.md §2）。
 - `playwright-chromium` 在 devDependencies？（換機器/CI 能重現）
 - 中文字型在匯出環境可得？翻 PDF 確認沒變方框（見 theming-style.md、pitfalls.md）。
 - 需要逐步動畫 → 有加 `--with-clicks`？

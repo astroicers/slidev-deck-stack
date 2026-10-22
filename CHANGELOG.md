@@ -2,6 +2,65 @@
 
 本專案的所有重大變更記錄於此。格式依循 [Keep a Changelog](https://keepachangelog.com/zh-TW/1.1.0/)，版本遵循 [Semantic Versioning](https://semver.org/lang/zh-TW/)。
 
+## [1.3.0] - 2026-10-22
+
+借鑒 [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill)（歸藏，AGPL-3.0）的**方法**——
+需求澄清七問、節奏規劃、講者備註契約、P0–P3 分級檢查、靜態驗證器——落到 Slidev。只借思路與工作流，
+未使用其模板、class、版式或文字；本 repo 仍為 MIT。
+
+### Added
+
+- `references/deck-planning.md`：動手前的工作流——兩種入口（ghost-deck / 只有題目）、**需求澄清七問**
+  （一次最多問 3 個）、時長 → 頁數與 click 預算表、**頁面計畫表**（`routeAlias` / layout / exhibit /
+  click / `minutes` / 轉場，存 `plan.md`）、**版面節奏**硬規則（每 3–4 頁換氣頁、同 layout 連續 ≤ 3、
+  10 頁以上 ≥ 4 種 layout）、**截圖約定**（`public/img/{NN}-{semantic}`、標準比例、≥ 1600px、
+  `backgroundSize: contain` 保真、遮敏感、不自帶 chrome）。
+- `references/presenter-notes.md`：Slidev 備註機制（內文結尾註解、`[click]` / `[click:n]` 標記、
+  `routeAlias`、`/overview`、`/notes-edit`、timer `duration` / `timer`、`notesAutoRuby`、`--remote`）、
+  **每頁備註契約**（目的 / 3–5 條提詞 / 轉場 + 可選提醒 / 備援 / 互動）、`minutes:` 時間規劃
+  （≤ `duration` 90%、全填或全不填、presenter 顯示本頁計畫的 global layer 範例）、排練流程、
+  **presenter 做得到 / 做不到對照表**（別手刻排練紀錄、自動翻頁、黑屏）。
+- `scripts/validate-deck.mjs`：零依賴（Node 18+）靜態檢查器，切頁 / frontmatter / 備註判定對齊
+  `@slidev/parser`。抓鐵則 #1（全域鍵跑到單頁）、#2（分頁線後接內文被當 frontmatter 吞掉）、
+  #3（手刻索引、`<v-clicks>` 無空行、click 預算）、#4（magic-move 三反引號）、#7（相對路徑）、
+  #8（`package.json` 沒鎖 playwright-chromium）、節奏（連續同 layout / 密集頁）、密度（清單 > 8、
+  標題 > 24 字、`zoom` < 0.75）、備註缺漏、`minutes` 預算、`routeAlias` 重複、`mdc` deprecated。
+- `tests/fixtures/{good,bad,budget}/`：驗證器 fixture；CI 跑 good（0 錯誤）、bad / budget（必須失敗並
+  命中預期訊息）。
+- `SKILL.md`：新增「**工作流（六步）**」表與「**設計原則**」（克制優於炫技 / 結構優於裝飾 /
+  圖是證據 / 節奏靠換氣頁 / 一頁一訊息 / 先量後改再目視）；路由表加 `deck-planning.md`、
+  `presenter-notes.md`；description 補 triggers。
+- `references/pitfalls.md` 重寫：地雷表新增 7 列（code groups 需 `comark`、截圖被裁、global layer
+  匯出、CJK 字型順序、備註不出現、`[click]` 不動、沒有換氣頁、溢出）、**自檢指令**（validator +
+  grep）、**先量後改的溢出階梯**（刪字 → 拆頁 → two-cols → `zoom` 下限 0.8 → `<Transform>`）、
+  `slidev export --format png` 視覺核對、**P0–P3 分級檢查清單**。
+- `references/theming-style.md` §6 投影可讀性：字級下限、密度上限、中文標題 ≤ 24 字、大字頁
+  「越大越細、越小越粗」、投影對比 `opacity-70` 起跳、中英混排、縮放階梯。
+- `references/animation.md` §8 動畫節制：transition 一種、v-motion 只給 hero 頁、一頁一種節奏、
+  每擊對應一條 `[click]` 提詞。
+- CI：references 9 → 11；新增「SKILL.md 路由表涵蓋所有 references」檢查；`setup-node` + fixtures。
+
+### Changed
+
+- `references/handoff.md` §4 落地流程 3 → 4 步：插入「先填頁面計畫表 + 補節奏」，`assertion` →
+  備註「目的」、`note` → 提詞、`[click]` 對齊 `reveal`。
+- `references/export-delivery.md`：§4 presenter 段改指向 presenter-notes.md；§6 匯出前自查加
+  validator 與 PNG 視覺核對。
+- `references/slide-structure.md`：`image-*` 範例加 `backgroundSize: contain`；MDC 段改 Comark。
+- `references/setup.md`：headmatter 範例 `mdc: true` → `comark: true`，加 `duration` / `timer`；
+  目錄結構加 `plan.md`。
+- `references/code-and-diagrams.md` §9：code groups 旗標說明改為「`mdc` 已 deprecated、一律 `comark`」。
+- `README.md`：快速上手加第 0 步（七問）與驗證指令、術語加 `routeAlias` / `minutes`、結構樹同步。
+
+### Fixed
+
+- `mdc: true` 在 Slidev v52.16 已標 `@deprecated`（MDC 併入 Comark），全部改為 `comark: true`
+  （`.fact-check.md` #25）。
+- `.fact-check.md` 將「備註為該頁最後一個 HTML 註解」從未查證清單升級為已查證（#19），並補登
+  #19–#28（click markers、`routeAlias`、`backgroundSize`、presenter / timer / remote、
+  `$nav.currentFrontmatter` 自訂欄位、`notesAutoRuby`、MCP v52.17+、parser 切頁規則）；
+  同時對 v52.16.0 tag 與 main（v53.0.0）核對，並記錄版本漂移提醒。
+
 ## [1.2.0] - 2026-06-24
 
 ### Added

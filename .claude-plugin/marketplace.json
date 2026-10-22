@@ -8,8 +8,8 @@
   "plugins": [
     {
       "name": "slidev-deck-stack",
-      "version": "1.2.0",
-      "description": "Cross-feature integration rules and recipes for Slidev v52 + Vue + Markdown + UnoCSS + Shiki magic-move + Mermaid/PlantUML + KaTeX + built-in layouts + v-click/v-motion + export PDF/PPTX/PNG/SPA. Enforces 8 iron rules that prevent common pitfalls in slide structure, code, animation, theming, and export.",
+      "version": "1.3.0",
+      "description": "Cross-feature integration rules and recipes for Slidev v52 + Vue + Markdown + UnoCSS + Shiki magic-move + Mermaid/PlantUML + KaTeX + built-in layouts + v-click/v-motion + export PDF/PPTX/PNG/SPA. Enforces 8 iron rules that prevent common pitfalls in slide structure, code, animation, theming, and export; adds a pre-build planning workflow (7-question intake, page plan, layout rhythm), a presenter-notes contract, a P0–P3 checklist and a zero-dependency static validator.",
       "author": {
         "name": "astroicers"
       },
